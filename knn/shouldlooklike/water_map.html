@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_745450310c174c4e6d356bee80dd843e {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style="position: fixed; bottom: 40px; left: 40px; z-index: 1000;
+                background: white; padding: 14px 18px; border-radius: 8px;
+                border: 1px solid #ccc; font-family: sans-serif; font-size: 13px;
+                box-shadow: 2px 2px 6px rgba(0,0,0,0.15);">
+      <b>Water body risk</b><br>
+      <span style="color:#2196F3">&#9679;</span> Flood risk (level &gt; normal)<br>
+      <span style="color:#FF9800">&#9679;</span> Drought risk (level &lt; normal)<br>
+      <span style="color:#F44336">&#9679;</span> Both risks present<br>
+      <span style="color:#4CAF50">&#9679;</span> Healthy / balanced<br>
+      <hr style="margin:6px 0">
+      <span style="color:#2E7D32">&#9632;</span> Farm<br>
+      <span style="color:#777">&#9135;</span> Farm → nearest water body
+    </div>
+    
+    
+            <div class="folium-map" id="map_745450310c174c4e6d356bee80dd843e" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_745450310c174c4e6d356bee80dd843e = L.map(
+                "map_745450310c174c4e6d356bee80dd843e",
+                {
+                    center: [46.74565333333333, 19.492646666666666],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 9,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_411ff33033b8fe6943bdfa34dd9c5b00 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_411ff33033b8fe6943bdfa34dd9c5b00.addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var marker_028f488ebd72b3ccae7d5fb8d8ceedb9 = L.marker(
+                [46.7412, 18.9823],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_5c41135977cc8c43a9595317804e8f43 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "tint",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_00229e0ee30406088009477256714e81 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_232ccf64b631a6820881cc39561ba10e = $(`<div id="html_232ccf64b631a6820881cc39561ba10e" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:220px">           <b style="font-size:14px">Duna (Danube)</b><br>           <span style="color:#666;font-size:12px">River</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Water level</td><td><b>4.8 m</b></td></tr>             <tr><td>Flow rate</td>                 <td><b>2150 m³/s</b></td></tr>             <tr><td>Flood score</td>                 <td><b style="color:#2196F3">                     0.843</b></td></tr>             <tr><td>Drought score</td>                 <td><b style="color:#333">                     0.0</b></td></tr>           </table>           <hr style="margin:6px 0">           <span style="font-size:11px;color:#555">Main river on western boundary; high flood risk in spring</span>         </div>         </div>`)[0];
+                popup_00229e0ee30406088009477256714e81.setContent(html_232ccf64b631a6820881cc39561ba10e);
+            
+        
+
+        marker_028f488ebd72b3ccae7d5fb8d8ceedb9.bindPopup(popup_00229e0ee30406088009477256714e81)
+        ;
+
+        
+    
+    
+            marker_028f488ebd72b3ccae7d5fb8d8ceedb9.bindTooltip(
+                `<div>
+                     Duna (Danube) | flood: 0.843 | drought: 0.0
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_028f488ebd72b3ccae7d5fb8d8ceedb9.setIcon(icon_5c41135977cc8c43a9595317804e8f43);
+            
+    
+            var marker_6b80f08387320a53440c66eb166f6f9e = L.marker(
+                [46.5891, 20.2134],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_dab1253bb1658dbaec2c14db8d1d47e0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "tint",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2b148d3c0acc2d1a9b506a35c07c63ac = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_88fd737da0a8c5b61b0dbe5846c74a2a = $(`<div id="html_88fd737da0a8c5b61b0dbe5846c74a2a" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:220px">           <b style="font-size:14px">Tisza</b><br>           <span style="color:#666;font-size:12px">River</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Water level</td><td><b>5.6 m</b></td></tr>             <tr><td>Flow rate</td>                 <td><b>830 m³/s</b></td></tr>             <tr><td>Flood score</td>                 <td><b style="color:#2196F3">                     0.611</b></td></tr>             <tr><td>Drought score</td>                 <td><b style="color:#333">                     0.0</b></td></tr>           </table>           <hr style="margin:6px 0">           <span style="font-size:11px;color:#555">Eastern boundary river; extreme flood risk; heavily regulated</span>         </div>         </div>`)[0];
+                popup_2b148d3c0acc2d1a9b506a35c07c63ac.setContent(html_88fd737da0a8c5b61b0dbe5846c74a2a);
+            
+        
+
+        marker_6b80f08387320a53440c66eb166f6f9e.bindPopup(popup_2b148d3c0acc2d1a9b506a35c07c63ac)
+        ;
+
+        
+    
+    
+            marker_6b80f08387320a53440c66eb166f6f9e.bindTooltip(
+                `<div>
+                     Tisza | flood: 0.611 | drought: 0.0
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6b80f08387320a53440c66eb166f6f9e.setIcon(icon_dab1253bb1658dbaec2c14db8d1d47e0);
+            
+    
+            var marker_9cdcbc748c85d03fa9ce5a142c367eb2 = L.marker(
+                [46.7901, 19.4023],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_46744cd08a56e18c1d7043bca10b5c43 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "arrows-h",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f2be06eb516844d259fb761ed2095c34 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_ba15d396dd30eac7e3ee3c0d766616ad = $(`<div id="html_ba15d396dd30eac7e3ee3c0d766616ad" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:220px">           <b style="font-size:14px">Kiskunsági Főcsatorna</b><br>           <span style="color:#666;font-size:12px">Canal</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Water level</td><td><b>1.1 m</b></td></tr>             <tr><td>Flow rate</td>                 <td><b>4.2 m³/s</b></td></tr>             <tr><td>Flood score</td>                 <td><b style="color:#333">                     0.0</b></td></tr>             <tr><td>Drought score</td>                 <td><b style="color:#333">                     0.361</b></td></tr>           </table>           <hr style="margin:6px 0">           <span style="font-size:11px;color:#555">Central irrigation canal; frequently runs low in summer droughts</span>         </div>         </div>`)[0];
+                popup_f2be06eb516844d259fb761ed2095c34.setContent(html_ba15d396dd30eac7e3ee3c0d766616ad);
+            
+        
+
+        marker_9cdcbc748c85d03fa9ce5a142c367eb2.bindPopup(popup_f2be06eb516844d259fb761ed2095c34)
+        ;
+
+        
+    
+    
+            marker_9cdcbc748c85d03fa9ce5a142c367eb2.bindTooltip(
+                `<div>
+                     Kiskunsági Főcsatorna | flood: 0.0 | drought: 0.361
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9cdcbc748c85d03fa9ce5a142c367eb2.setIcon(icon_46744cd08a56e18c1d7043bca10b5c43);
+            
+    
+            var marker_92ea2e5b80ad679405552250737071d4 = L.marker(
+                [46.9213, 19.2841],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_cfb3a7c173f6b3f2ae5466f57424b8c3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "arrows-h",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ed6c6e7eb6df89e932119f100d27f434 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_94954c81fee91200afad2e0869ee9b5c = $(`<div id="html_94954c81fee91200afad2e0869ee9b5c" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:220px">           <b style="font-size:14px">Duna–Tisza-közi Hátság Canal</b><br>           <span style="color:#666;font-size:12px">Canal</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Water level</td><td><b>0.7 m</b></td></tr>             <tr><td>Flow rate</td>                 <td><b>1.8 m³/s</b></td></tr>             <tr><td>Flood score</td>                 <td><b style="color:#333">                     0.0</b></td></tr>             <tr><td>Drought score</td>                 <td><b style="color:#FF9800">                     0.619</b></td></tr>           </table>           <hr style="margin:6px 0">           <span style="font-size:11px;color:#555">Groundwater-fed canal; critically low in dry years</span>         </div>         </div>`)[0];
+                popup_ed6c6e7eb6df89e932119f100d27f434.setContent(html_94954c81fee91200afad2e0869ee9b5c);
+            
+        
+
+        marker_92ea2e5b80ad679405552250737071d4.bindPopup(popup_ed6c6e7eb6df89e932119f100d27f434)
+        ;
+
+        
+    
+    
+            marker_92ea2e5b80ad679405552250737071d4.bindTooltip(
+                `<div>
+                     Duna–Tisza-közi Hátság Canal | flood: 0.0 | drought: 0.619
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_92ea2e5b80ad679405552250737071d4.setIcon(icon_cfb3a7c173f6b3f2ae5466f57424b8c3);
+            
+    
+            var marker_627598ac5b4cd2c88f6d7db71dda8c72 = L.marker(
+                [46.4523, 19.9812],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_73d398aeac6666baa16c2f7094e0c636 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b51f1d6fbb7d56c2354691d915317369 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_9b94e703251ba3b0b6299cd3303588be = $(`<div id="html_9b94e703251ba3b0b6299cd3303588be" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:220px">           <b style="font-size:14px">Fehér-tó (Fehértó)</b><br>           <span style="color:#666;font-size:12px">Lake</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Water level</td><td><b>0.4 m</b></td></tr>             <tr><td>Flow rate</td>                 <td><b>N/A m³/s</b></td></tr>             <tr><td>Flood score</td>                 <td><b style="color:#333">                     0.0</b></td></tr>             <tr><td>Drought score</td>                 <td><b style="color:#FF9800">                     0.513</b></td></tr>           </table>           <hr style="margin:6px 0">           <span style="font-size:11px;color:#555">Shallow saline lake; drying trend over past decade; Ramsar site</span>         </div>         </div>`)[0];
+                popup_b51f1d6fbb7d56c2354691d915317369.setContent(html_9b94e703251ba3b0b6299cd3303588be);
+            
+        
+
+        marker_627598ac5b4cd2c88f6d7db71dda8c72.bindPopup(popup_b51f1d6fbb7d56c2354691d915317369)
+        ;
+
+        
+    
+    
+            marker_627598ac5b4cd2c88f6d7db71dda8c72.bindTooltip(
+                `<div>
+                     Fehér-tó (Fehértó) | flood: 0.0 | drought: 0.513
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_627598ac5b4cd2c88f6d7db71dda8c72.setIcon(icon_73d398aeac6666baa16c2f7094e0c636);
+            
+    
+            var marker_6455c97167349fb71dbfb28d609fed98 = L.marker(
+                [46.7021, 19.5634],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_3925c7d86ccfaa99104968005813a2d7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ee1d71f49f3a6c51cdcc4edd4571f6c4 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_d41b40fb30830761a7b4f35ff03b0cac = $(`<div id="html_d41b40fb30830761a7b4f35ff03b0cac" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:220px">           <b style="font-size:14px">Kondor-tó</b><br>           <span style="color:#666;font-size:12px">Lake</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Water level</td><td><b>0.6 m</b></td></tr>             <tr><td>Flow rate</td>                 <td><b>N/A m³/s</b></td></tr>             <tr><td>Flood score</td>                 <td><b style="color:#333">                     0.0</b></td></tr>             <tr><td>Drought score</td>                 <td><b style="color:#FF9800">                     0.42</b></td></tr>           </table>           <hr style="margin:6px 0">           <span style="font-size:11px;color:#555">Small steppe lake; seasonal; partially dry in late summer</span>         </div>         </div>`)[0];
+                popup_ee1d71f49f3a6c51cdcc4edd4571f6c4.setContent(html_d41b40fb30830761a7b4f35ff03b0cac);
+            
+        
+
+        marker_6455c97167349fb71dbfb28d609fed98.bindPopup(popup_ee1d71f49f3a6c51cdcc4edd4571f6c4)
+        ;
+
+        
+    
+    
+            marker_6455c97167349fb71dbfb28d609fed98.bindTooltip(
+                `<div>
+                     Kondor-tó | flood: 0.0 | drought: 0.42
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6455c97167349fb71dbfb28d609fed98.setIcon(icon_3925c7d86ccfaa99104968005813a2d7);
+            
+    
+            var marker_ffa5843d0377ef8397f0cd59403b53ab = L.marker(
+                [46.8734, 19.7512],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_e46d5da3a3ef0c80101f01ad2b961fc4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "arrows-h",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6532ba03bfd05648a12ec7b0867f12d4 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_f54b9773f469ba4078beff1ed2933e0f = $(`<div id="html_f54b9773f469ba4078beff1ed2933e0f" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:220px">           <b style="font-size:14px">Keleti Főcsatorna branch</b><br>           <span style="color:#666;font-size:12px">Canal</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Water level</td><td><b>1.5 m</b></td></tr>             <tr><td>Flow rate</td>                 <td><b>6.3 m³/s</b></td></tr>             <tr><td>Flood score</td>                 <td><b style="color:#333">                     0.084</b></td></tr>             <tr><td>Drought score</td>                 <td><b style="color:#333">                     0.111</b></td></tr>           </table>           <hr style="margin:6px 0">           <span style="font-size:11px;color:#555">Eastern distribution canal; moderate and balanced risk profile</span>         </div>         </div>`)[0];
+                popup_6532ba03bfd05648a12ec7b0867f12d4.setContent(html_f54b9773f469ba4078beff1ed2933e0f);
+            
+        
+
+        marker_ffa5843d0377ef8397f0cd59403b53ab.bindPopup(popup_6532ba03bfd05648a12ec7b0867f12d4)
+        ;
+
+        
+    
+    
+            marker_ffa5843d0377ef8397f0cd59403b53ab.bindTooltip(
+                `<div>
+                     Keleti Főcsatorna branch | flood: 0.084 | drought: 0.111
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ffa5843d0377ef8397f0cd59403b53ab.setIcon(icon_e46d5da3a3ef0c80101f01ad2b961fc4);
+            
+    
+            var marker_6b8f77259a25f244383fe488da99ffc7 = L.marker(
+                [46.8512, 19.5103],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_b73e825a2222d43fecb37285b7e40ac6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "database",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c1c449028a865d7303a832bbd3d42eac = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_12a71f85dd44169813ddc42c358438af = $(`<div id="html_12a71f85dd44169813ddc42c358438af" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:220px">           <b style="font-size:14px">Ágasegyházi Tározó</b><br>           <span style="color:#666;font-size:12px">Reservoir</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Water level</td><td><b>2.3 m</b></td></tr>             <tr><td>Flow rate</td>                 <td><b>N/A m³/s</b></td></tr>             <tr><td>Flood score</td>                 <td><b style="color:#333">                     0.0</b></td></tr>             <tr><td>Drought score</td>                 <td><b style="color:#333">                     0.056</b></td></tr>           </table>           <hr style="margin:6px 0">           <span style="font-size:11px;color:#555">Managed retention reservoir; overflow risk during heavy spring rain</span>         </div>         </div>`)[0];
+                popup_c1c449028a865d7303a832bbd3d42eac.setContent(html_12a71f85dd44169813ddc42c358438af);
+            
+        
+
+        marker_6b8f77259a25f244383fe488da99ffc7.bindPopup(popup_c1c449028a865d7303a832bbd3d42eac)
+        ;
+
+        
+    
+    
+            marker_6b8f77259a25f244383fe488da99ffc7.bindTooltip(
+                `<div>
+                     Ágasegyházi Tározó | flood: 0.0 | drought: 0.056
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6b8f77259a25f244383fe488da99ffc7.setIcon(icon_b73e825a2222d43fecb37285b7e40ac6);
+            
+    
+            var marker_4b6fa7ce458115038a4d8c9f39a16ff7 = L.marker(
+                [46.7543, 19.2231],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_43bcf9f2b65883e7332202fa115c6beb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_94bb16ce539c4e020e3c0cec2c07c514 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_dce3e8badaa25265722da7a9c9625d93 = $(`<div id="html_dce3e8badaa25265722da7a9c9625d93" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:220px">           <b style="font-size:14px">Kolon-tó</b><br>           <span style="color:#666;font-size:12px">Lake</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Water level</td><td><b>2.8 m</b></td></tr>             <tr><td>Flow rate</td>                 <td><b>N/A m³/s</b></td></tr>             <tr><td>Flood score</td>                 <td><b style="color:#2196F3">                     0.52</b></td></tr>             <tr><td>Drought score</td>                 <td><b style="color:#333">                     0.0</b></td></tr>           </table>           <hr style="margin:6px 0">           <span style="font-size:11px;color:#555">Reed-marsh lake near Izsák; wetland habitat; moderate flood potential</span>         </div>         </div>`)[0];
+                popup_94bb16ce539c4e020e3c0cec2c07c514.setContent(html_dce3e8badaa25265722da7a9c9625d93);
+            
+        
+
+        marker_4b6fa7ce458115038a4d8c9f39a16ff7.bindPopup(popup_94bb16ce539c4e020e3c0cec2c07c514)
+        ;
+
+        
+    
+    
+            marker_4b6fa7ce458115038a4d8c9f39a16ff7.bindTooltip(
+                `<div>
+                     Kolon-tó | flood: 0.52 | drought: 0.0
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4b6fa7ce458115038a4d8c9f39a16ff7.setIcon(icon_43bcf9f2b65883e7332202fa115c6beb);
+            
+    
+            var marker_c107805c48ceb7879da9bfed0d375d98 = L.marker(
+                [46.8723, 20.0341],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_c738f10c0d0b2d25a2de5835d49202a3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "refresh",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fbac0ff119f1edb93bbb43a8c0c47b97 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_3e361e6b680d1eb7bcb2e719fdcb6654 = $(`<div id="html_3e361e6b680d1eb7bcb2e719fdcb6654" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:220px">           <b style="font-size:14px">Alpári-Holt-Tisza</b><br>           <span style="color:#666;font-size:12px">Oxbow Lake</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Water level</td><td><b>3.1 m</b></td></tr>             <tr><td>Flow rate</td>                 <td><b>N/A m³/s</b></td></tr>             <tr><td>Flood score</td>                 <td><b style="color:#333">                     0.264</b></td></tr>             <tr><td>Drought score</td>                 <td><b style="color:#333">                     0.0</b></td></tr>           </table>           <hr style="margin:6px 0">           <span style="font-size:11px;color:#555">Oxbow lake; fills rapidly when Tisza floods; harvestable surplus water</span>         </div>         </div>`)[0];
+                popup_fbac0ff119f1edb93bbb43a8c0c47b97.setContent(html_3e361e6b680d1eb7bcb2e719fdcb6654);
+            
+        
+
+        marker_c107805c48ceb7879da9bfed0d375d98.bindPopup(popup_fbac0ff119f1edb93bbb43a8c0c47b97)
+        ;
+
+        
+    
+    
+            marker_c107805c48ceb7879da9bfed0d375d98.bindTooltip(
+                `<div>
+                     Alpári-Holt-Tisza | flood: 0.264 | drought: 0.0
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c107805c48ceb7879da9bfed0d375d98.setIcon(icon_c738f10c0d0b2d25a2de5835d49202a3);
+            
+    
+            var marker_fbb7a939168d374a5fb2c776461746d9 = L.marker(
+                [46.6102, 19.2541],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_3524f15d6c78ad27310639e50c0fc1fa = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "database",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_40a125b0a051c3fe7758316953a57434 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_c0cc68eeb384b7abbba4733f72517d5b = $(`<div id="html_c0cc68eeb384b7abbba4733f72517d5b" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:220px">           <b style="font-size:14px">Kiskőrösi Tározó</b><br>           <span style="color:#666;font-size:12px">Reservoir</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Water level</td><td><b>1.9 m</b></td></tr>             <tr><td>Flow rate</td>                 <td><b>N/A m³/s</b></td></tr>             <tr><td>Flood score</td>                 <td><b style="color:#333">                     0.0</b></td></tr>             <tr><td>Drought score</td>                 <td><b style="color:#333">                     0.168</b></td></tr>           </table>           <hr style="margin:6px 0">           <span style="font-size:11px;color:#555">Small agricultural reservoir; used for supplementary irrigation</span>         </div>         </div>`)[0];
+                popup_40a125b0a051c3fe7758316953a57434.setContent(html_c0cc68eeb384b7abbba4733f72517d5b);
+            
+        
+
+        marker_fbb7a939168d374a5fb2c776461746d9.bindPopup(popup_40a125b0a051c3fe7758316953a57434)
+        ;
+
+        
+    
+    
+            marker_fbb7a939168d374a5fb2c776461746d9.bindTooltip(
+                `<div>
+                     Kiskőrösi Tározó | flood: 0.0 | drought: 0.168
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fbb7a939168d374a5fb2c776461746d9.setIcon(icon_3524f15d6c78ad27310639e50c0fc1fa);
+            
+    
+            var marker_c3b93ffaa773c7fea3e9e3c5c9777a0b = L.marker(
+                [46.5312, 19.3412],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_c5bddaab4e5cd5477d1cd3de970dd3c1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "arrows-h",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a553dac06c4ccb0faf19da589ef84772 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_1cadd3d0a44fd337579b5efe7be2c1c8 = $(`<div id="html_1cadd3d0a44fd337579b5efe7be2c1c8" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:220px">           <b style="font-size:14px">Bócsai Belvízcsatorna</b><br>           <span style="color:#666;font-size:12px">Canal</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Water level</td><td><b>2.0 m</b></td></tr>             <tr><td>Flow rate</td>                 <td><b>3.1 m³/s</b></td></tr>             <tr><td>Flood score</td>                 <td><b style="color:#333">                     0.341</b></td></tr>             <tr><td>Drought score</td>                 <td><b style="color:#333">                     0.0</b></td></tr>           </table>           <hr style="margin:6px 0">           <span style="font-size:11px;color:#555">Inland waterway canal; collects excess rainwater; flood risk in wet season</span>         </div>         </div>`)[0];
+                popup_a553dac06c4ccb0faf19da589ef84772.setContent(html_1cadd3d0a44fd337579b5efe7be2c1c8);
+            
+        
+
+        marker_c3b93ffaa773c7fea3e9e3c5c9777a0b.bindPopup(popup_a553dac06c4ccb0faf19da589ef84772)
+        ;
+
+        
+    
+    
+            marker_c3b93ffaa773c7fea3e9e3c5c9777a0b.bindTooltip(
+                `<div>
+                     Bócsai Belvízcsatorna | flood: 0.341 | drought: 0.0
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c3b93ffaa773c7fea3e9e3c5c9777a0b.setIcon(icon_c5bddaab4e5cd5477d1cd3de970dd3c1);
+            
+    
+            var marker_6a9724c31871d0d902105f07d6c827b9 = L.marker(
+                [46.7823, 19.4512],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_60120b67786a1d264dceb477cb46a2a6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cdd89224af3a48fd74dd964123aa7e54 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_114162a42e99c5596bc89a9957830ac5 = $(`<div id="html_114162a42e99c5596bc89a9957830ac5" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Kovács Tanya</b><br>           <span style="color:#666;font-size:12px">Kovács István</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Sunflower</b></td></tr>             <tr><td>Size</td><td><b>145 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>drip</b></td></tr>             <tr><td>Water need</td><td><b>87,000 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Kiskunsági Főcsatorna</td><td>3.82 km</td><td>F:0.0 D:0.361</td></tr><tr><td>Ágasegyházi Tározó</td><td>8.88 km</td><td>F:0.0 D:0.056</td></tr><tr><td>Kondor-tó</td><td>12.35 km</td><td>F:0.0 D:0.42</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">Hi István, none of your nearby water sources currently show surplus water—flood scores are all zero—so there’s no extra supply to tap. Both Kondor-tó (12.35 km) and Kiskunsági Főcsatorna (3.82 km) have low water levels and high drought scores, so they’re risky for reliable irrigation, especially in late summer. Ágasegyházi Tározó (8.88 km), while not abundant, is managed and tends to overflow during heavy spring rains—consider installing a small pump and storage tank to capture excess during these times. This way, you’ll build a reserve and cut down your dependence on government freshwater when drought hits.</p>         </div>         </div>`)[0];
+                popup_cdd89224af3a48fd74dd964123aa7e54.setContent(html_114162a42e99c5596bc89a9957830ac5);
+            
+        
+
+        marker_6a9724c31871d0d902105f07d6c827b9.bindPopup(popup_cdd89224af3a48fd74dd964123aa7e54)
+        ;
+
+        
+    
+    
+            marker_6a9724c31871d0d902105f07d6c827b9.bindTooltip(
+                `<div>
+                     Kovács Tanya — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6a9724c31871d0d902105f07d6c827b9.setIcon(icon_60120b67786a1d264dceb477cb46a2a6);
+            
+    
+            var poly_line_ffbc01dac8da07abd72d3910f2c69bbb = L.polyline(
+                [[46.7823, 19.4512], [46.7901, 19.4023]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_ffbc01dac8da07abd72d3910f2c69bbb.bindTooltip(
+                `<div>
+                     Kovács Tanya → Kiskunsági Főcsatorna (3.82 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_0d80de43fff4be99d6ff6ed36e071943 = L.marker(
+                [46.6341, 19.6874],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_06db3248c8051c28056617051e81ef3e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_089bb9d124bd060d564353329767f4a0 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_ac28e7a871c4427a13d66bccf91ac17f = $(`<div id="html_ac28e7a871c4427a13d66bccf91ac17f" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Nagy-pusztai Gazdaság</b><br>           <span style="color:#666;font-size:12px">Nagy Erzsébet</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Wheat</b></td></tr>             <tr><td>Size</td><td><b>210 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>sprinkler</b></td></tr>             <tr><td>Water need</td><td><b>105,000 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Kondor-tó</td><td>12.11 km</td><td>F:0.0 D:0.42</td></tr><tr><td>Keleti Főcsatorna branch</td><td>27.05 km</td><td>F:0.084 D:0.111</td></tr><tr><td>Ágasegyházi Tározó</td><td>27.66 km</td><td>F:0.0 D:0.056</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">At present, none of the nearby water bodies show high flood scores, so there isn’t a surplus water source you can easily harness—especially Kondor-tó, just 12 km away, which is seasonal and partially dry by late summer, making it unreliable during droughts. The Keleti Főcsatorna branch, 27 km away, has a balanced risk profile and more stable water levels, making it your best alternative for irrigation if you want to reduce reliance on government freshwater supply. I recommend exploring a connection to the Keleti Főcsatorna branch and considering water storage solutions on your farm to capture and use its water efficiently, particularly during periods when canal flow is steady. This approach will provide a more consistent supply for your wheat crop and help buffer against both drought and flood extremes.</p>         </div>         </div>`)[0];
+                popup_089bb9d124bd060d564353329767f4a0.setContent(html_ac28e7a871c4427a13d66bccf91ac17f);
+            
+        
+
+        marker_0d80de43fff4be99d6ff6ed36e071943.bindPopup(popup_089bb9d124bd060d564353329767f4a0)
+        ;
+
+        
+    
+    
+            marker_0d80de43fff4be99d6ff6ed36e071943.bindTooltip(
+                `<div>
+                     Nagy-pusztai Gazdaság — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0d80de43fff4be99d6ff6ed36e071943.setIcon(icon_06db3248c8051c28056617051e81ef3e);
+            
+    
+            var poly_line_52915b3c5d378b1c65f8f90a2ddc8335 = L.polyline(
+                [[46.6341, 19.6874], [46.7021, 19.5634]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_52915b3c5d378b1c65f8f90a2ddc8335.bindTooltip(
+                `<div>
+                     Nagy-pusztai Gazdaság → Kondor-tó (12.11 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_965dab41ab9d1ab252c8c33a828bd700 = L.marker(
+                [46.8901, 19.3245],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_a3b04b82574936ca1e537062709c37ec = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_064ff5d57c38f17a8173ddba1a02964a = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_861c4abf9f4631bb99286e866ea8591e = $(`<div id="html_861c4abf9f4631bb99286e866ea8591e" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Homoki Birtok</b><br>           <span style="color:#666;font-size:12px">Szabó Gábor</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Grape</b></td></tr>             <tr><td>Size</td><td><b>88 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>none</b></td></tr>             <tr><td>Water need</td><td><b>44,000 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Duna–Tisza-közi Hátság Canal</td><td>4.63 km</td><td>F:0.0 D:0.619</td></tr><tr><td>Kiskunsági Főcsatorna</td><td>12.6 km</td><td>F:0.0 D:0.361</td></tr><tr><td>Ágasegyházi Tározó</td><td>14.77 km</td><td>F:0.0 D:0.056</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">Hi Gábor, based on current data, none of the nearby water bodies—Duna–Tisza-közi Hátság Canal (4.63 km), Kiskunsági Főcsatorna (12.6 km), or Ágasegyházi Tározó (14.77 km)—has surplus water, as all report a flood score of 0.0 and are at risk during droughts, especially the closest canal. Both canals often run low when you most need water, so they’re unreliable sources. To reduce your dependence on government freshwater, I recommend exploring on-farm rainwater harvesting and storage, especially capturing spring rains when the Ágasegyházi Tározó sometimes overflows. This way, you can build your own buffer for the drier months and ensure more stable irrigation for your grapes.</p>         </div>         </div>`)[0];
+                popup_064ff5d57c38f17a8173ddba1a02964a.setContent(html_861c4abf9f4631bb99286e866ea8591e);
+            
+        
+
+        marker_965dab41ab9d1ab252c8c33a828bd700.bindPopup(popup_064ff5d57c38f17a8173ddba1a02964a)
+        ;
+
+        
+    
+    
+            marker_965dab41ab9d1ab252c8c33a828bd700.bindTooltip(
+                `<div>
+                     Homoki Birtok — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_965dab41ab9d1ab252c8c33a828bd700.setIcon(icon_a3b04b82574936ca1e537062709c37ec);
+            
+    
+            var poly_line_39099914f6e87bfce99a3b6e3863b052 = L.polyline(
+                [[46.8901, 19.3245], [46.9213, 19.2841]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_39099914f6e87bfce99a3b6e3863b052.bindTooltip(
+                `<div>
+                     Homoki Birtok → Duna–Tisza-közi Hátság Canal (4.63 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_18574df29a0b64e720df937a9bc91d4e = L.marker(
+                [46.9512, 19.563],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_0de9ee6bcf73fded9ade68073e3a6c60 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e380b777dfd7d41cffdecbca32b4a2f4 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a4cbd3db5b77fe8b3fa5f5db6018f282 = $(`<div id="html_a4cbd3db5b77fe8b3fa5f5db6018f282" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Kiskunsági Farmház</b><br>           <span style="color:#666;font-size:12px">Varga Mária</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Corn</b></td></tr>             <tr><td>Size</td><td><b>176 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>drip</b></td></tr>             <tr><td>Water need</td><td><b>123,200 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Ágasegyházi Tározó</td><td>11.82 km</td><td>F:0.0 D:0.056</td></tr><tr><td>Keleti Főcsatorna branch</td><td>16.71 km</td><td>F:0.084 D:0.111</td></tr><tr><td>Duna–Tisza-közi Hátság Canal</td><td>21.43 km</td><td>F:0.0 D:0.619</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">Varga Mária, none of the nearby water bodies currently show a surplus of water you could harness—Ágasegyházi Tározó and Duna–Tisza-közi Hátság Canal both have flood scores of 0.0, meaning no overflow and limited excess. For irrigation, avoid relying on the Duna–Tisza-közi Hátság Canal (21.43 km away), as it has a critically low water level and the highest drought risk. Although the Keleti Főcsatorna branch (16.71 km), with its moderate flood and drought scores, is your most stable option, I recommend installing a small on-farm rainwater collection system to supplement drip irrigation and cut your dependence on government supply, especially during unpredictable spring rains.</p>         </div>         </div>`)[0];
+                popup_e380b777dfd7d41cffdecbca32b4a2f4.setContent(html_a4cbd3db5b77fe8b3fa5f5db6018f282);
+            
+        
+
+        marker_18574df29a0b64e720df937a9bc91d4e.bindPopup(popup_e380b777dfd7d41cffdecbca32b4a2f4)
+        ;
+
+        
+    
+    
+            marker_18574df29a0b64e720df937a9bc91d4e.bindTooltip(
+                `<div>
+                     Kiskunsági Farmház — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_18574df29a0b64e720df937a9bc91d4e.setIcon(icon_0de9ee6bcf73fded9ade68073e3a6c60);
+            
+    
+            var poly_line_d8c984d008f47950c2d940a94847af4d = L.polyline(
+                [[46.9512, 19.563], [46.8512, 19.5103]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_d8c984d008f47950c2d940a94847af4d.bindTooltip(
+                `<div>
+                     Kiskunsági Farmház → Ágasegyházi Tározó (11.82 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_a9cfd55476876f363e286d245a256211 = L.marker(
+                [46.5214, 19.5103],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_3a4f082dd8de9a46ecf89258bafebc57 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_29baf96b92e038af40d9f44e28c6671a = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_95c81e4867fa7c18581274490bd6d828 = $(`<div id="html_95c81e4867fa7c18581274490bd6d828" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Pusztai Örökség</b><br>           <span style="color:#666;font-size:12px">Fekete Zoltán</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Wheat</b></td></tr>             <tr><td>Size</td><td><b>300 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>sprinkler</b></td></tr>             <tr><td>Water need</td><td><b>180,000 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Bócsai Belvízcsatorna</td><td>12.98 km</td><td>F:0.341 D:0.0</td></tr><tr><td>Kondor-tó</td><td>20.5 km</td><td>F:0.0 D:0.42</td></tr><tr><td>Kiskőrösi Tározó</td><td>21.93 km</td><td>F:0.0 D:0.168</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">Hi Zoltán, based on current conditions, the Bócsai Belvízcsatorna canal (12.98 km away) stands out as your best option for surplus water since it collects excess rainwater and has a relatively high flood score of 0.341, meaning you could harness extra water during the wet season. Avoid relying on Kondor-tó (20.5 km), as its drought score of 0.42 and low water level indicate high risk—it often dries out in late summer. To cut dependence on government freshwater, consider investing in a temporary pipeline or water transfer agreement with the canal during flood periods; this lets you store surplus water onsite for irrigation when conditions turn dry.</p>         </div>         </div>`)[0];
+                popup_29baf96b92e038af40d9f44e28c6671a.setContent(html_95c81e4867fa7c18581274490bd6d828);
+            
+        
+
+        marker_a9cfd55476876f363e286d245a256211.bindPopup(popup_29baf96b92e038af40d9f44e28c6671a)
+        ;
+
+        
+    
+    
+            marker_a9cfd55476876f363e286d245a256211.bindTooltip(
+                `<div>
+                     Pusztai Örökség — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a9cfd55476876f363e286d245a256211.setIcon(icon_3a4f082dd8de9a46ecf89258bafebc57);
+            
+    
+            var poly_line_9c6ffa7d0cce7ce412f4e60a102834f6 = L.polyline(
+                [[46.5214, 19.5103], [46.5312, 19.3412]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_9c6ffa7d0cce7ce412f4e60a102834f6.bindTooltip(
+                `<div>
+                     Pusztai Örökség → Bócsai Belvízcsatorna (12.98 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_5e0c6c11568448aa47323167400148c9 = L.marker(
+                [46.7105, 19.1423],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_593e3fb6ade2dbe22a1cc446478e3055 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_77787211ef99a490291ebe1aed09358f = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_57d716cca66d4b813e9f914799898022 = $(`<div id="html_57d716cca66d4b813e9f914799898022" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Duna-menti Tanya</b><br>           <span style="color:#666;font-size:12px">Horváth Péter</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Vegetables</b></td></tr>             <tr><td>Size</td><td><b>95 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>drip</b></td></tr>             <tr><td>Water need</td><td><b>76,000 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Kolon-tó</td><td>7.85 km</td><td>F:0.52 D:0.0</td></tr><tr><td>Duna (Danube)</td><td>12.66 km</td><td>F:0.843 D:0.0</td></tr><tr><td>Kiskőrösi Tározó</td><td>14.04 km</td><td>F:0.0 D:0.168</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">Hi Péter, based on current water conditions, the Duna river (12.66 km away) has a high flood score (0.843), meaning it regularly sees surplus water, especially in spring—making it your best source for additional irrigation. Avoid depending on the Kiskőrösi Tározó reservoir (14.04 km), as its drought score (0.168) signals it's vulnerable to drying up in critical periods. To cut back on using government-supplied water, consider investing in a small-scale transfer or collection system to capture and store excess water from the Danube during high-flow times for your drip irrigation system. This will boost your farm's resilience and keep your vegetable crops secure through both floods and droughts.</p>         </div>         </div>`)[0];
+                popup_77787211ef99a490291ebe1aed09358f.setContent(html_57d716cca66d4b813e9f914799898022);
+            
+        
+
+        marker_5e0c6c11568448aa47323167400148c9.bindPopup(popup_77787211ef99a490291ebe1aed09358f)
+        ;
+
+        
+    
+    
+            marker_5e0c6c11568448aa47323167400148c9.bindTooltip(
+                `<div>
+                     Duna-menti Tanya — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5e0c6c11568448aa47323167400148c9.setIcon(icon_593e3fb6ade2dbe22a1cc446478e3055);
+            
+    
+            var poly_line_57f027612e0ac911fa3a4bf7c1752275 = L.polyline(
+                [[46.7105, 19.1423], [46.7543, 19.2231]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_57f027612e0ac911fa3a4bf7c1752275.bindTooltip(
+                `<div>
+                     Duna-menti Tanya → Kolon-tó (7.85 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_c83853e8cf8b67e12479dd5e5630be56 = L.marker(
+                [46.687, 19.6023],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_85b0a1ae2badc22f124833dba8631564 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_025e960b32e8c53f397060f0eab036e6 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_1fec2077a64b81945df718db986c2fb8 = $(`<div id="html_1fec2077a64b81945df718db986c2fb8" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Bugaci Gazdaság</b><br>           <span style="color:#666;font-size:12px">Kiss Katalin</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Sunflower</b></td></tr>             <tr><td>Size</td><td><b>130 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>none</b></td></tr>             <tr><td>Water need</td><td><b>65,000 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Kondor-tó</td><td>3.41 km</td><td>F:0.0 D:0.42</td></tr><tr><td>Kiskunsági Főcsatorna</td><td>19.07 km</td><td>F:0.0 D:0.361</td></tr><tr><td>Ágasegyházi Tározó</td><td>19.56 km</td><td>F:0.0 D:0.056</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">Currently, none of your nearby water bodies have surplus water to harness, as all three—Kondor-tó (3.41 km), Kiskunsági Főcsatorna (19.07 km), and Ágasegyházi Tározó (19.56 km)—have flood scores of 0.0, indicating no extra water is available. Both Kondor-tó and Kiskunsági Főcsatorna are at drought risk, especially Kondor-tó, which partially dries out in late summer, so neither can provide a reliable summer supply. Ágasegyházi Tározó has a lower drought risk and higher, managed water level, but it's also not always dependable in extreme years. To reduce your dependence on government freshwater, start exploring the collection and storage of rainwater directly on your farm—simple, shallow on-farm reservoirs or infiltration basins could help maximize use of spring and early summer rainfall for your sunflowers.</p>         </div>         </div>`)[0];
+                popup_025e960b32e8c53f397060f0eab036e6.setContent(html_1fec2077a64b81945df718db986c2fb8);
+            
+        
+
+        marker_c83853e8cf8b67e12479dd5e5630be56.bindPopup(popup_025e960b32e8c53f397060f0eab036e6)
+        ;
+
+        
+    
+    
+            marker_c83853e8cf8b67e12479dd5e5630be56.bindTooltip(
+                `<div>
+                     Bugaci Gazdaság — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c83853e8cf8b67e12479dd5e5630be56.setIcon(icon_85b0a1ae2badc22f124833dba8631564);
+            
+    
+            var poly_line_dd0c008abb444a62c75544c11834f007 = L.polyline(
+                [[46.687, 19.6023], [46.7021, 19.5634]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_dd0c008abb444a62c75544c11834f007.bindTooltip(
+                `<div>
+                     Bugaci Gazdaság → Kondor-tó (3.41 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_782fe78139052070af4f19f2969340f6 = L.marker(
+                [46.5732, 19.3981],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_652da44acabb1a172796cda404338b3b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_20f97a41b1be6bf486bb265b3c450916 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_6e37111079bf1604546c2950f8217e6b = $(`<div id="html_6e37111079bf1604546c2950f8217e6b" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Soltvadkert Tanya</b><br>           <span style="color:#666;font-size:12px">Tóth András</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Corn</b></td></tr>             <tr><td>Size</td><td><b>195 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>sprinkler</b></td></tr>             <tr><td>Water need</td><td><b>136,500 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Bócsai Belvízcsatorna</td><td>6.38 km</td><td>F:0.341 D:0.0</td></tr><tr><td>Kiskőrösi Tározó</td><td>11.75 km</td><td>F:0.0 D:0.168</td></tr><tr><td>Kondor-tó</td><td>19.1 km</td><td>F:0.0 D:0.42</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">Tóth András, you could consider harnessing surplus water from the Bócsai Belvízcsatorna canal, just 6.38 km away, since its high flood score (0.341) means it often has excess rainwater during the wet season. Avoid relying on Kondor-tó, the lake 19.1 km away, as its high drought score (0.42) and low water level signal that it’s very vulnerable to drying out. To reduce dependence on government freshwater, look into setting up a temporary pump system to capture canal water during floods, storing it for use in dry periods. This approach will help safeguard your corn crop and make your irrigation more resilient.</p>         </div>         </div>`)[0];
+                popup_20f97a41b1be6bf486bb265b3c450916.setContent(html_6e37111079bf1604546c2950f8217e6b);
+            
+        
+
+        marker_782fe78139052070af4f19f2969340f6.bindPopup(popup_20f97a41b1be6bf486bb265b3c450916)
+        ;
+
+        
+    
+    
+            marker_782fe78139052070af4f19f2969340f6.bindTooltip(
+                `<div>
+                     Soltvadkert Tanya — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_782fe78139052070af4f19f2969340f6.setIcon(icon_652da44acabb1a172796cda404338b3b);
+            
+    
+            var poly_line_b8e4e53ccae91fc3a5fceabe124b34d1 = L.polyline(
+                [[46.5732, 19.3981], [46.5312, 19.3412]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_b8e4e53ccae91fc3a5fceabe124b34d1.bindTooltip(
+                `<div>
+                     Soltvadkert Tanya → Bócsai Belvízcsatorna (6.38 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_8256f004e8c270d649ab812e3d7e6832 = L.marker(
+                [46.6488, 19.2714],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_a759c6bfbcbb27ac733faa2cbd75c168 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_14161a545660d474af4f81139afe3ef4 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_9a9f22fdbc1ad832448b112b46f5a89b = $(`<div id="html_9a9f22fdbc1ad832448b112b46f5a89b" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Keceli Homokbirtok</b><br>           <span style="color:#666;font-size:12px">Molnár Judit</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Grape</b></td></tr>             <tr><td>Size</td><td><b>72 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>drip</b></td></tr>             <tr><td>Water need</td><td><b>36,000 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Kiskőrösi Tározó</td><td>4.49 km</td><td>F:0.0 D:0.168</td></tr><tr><td>Kolon-tó</td><td>12.3 km</td><td>F:0.52 D:0.0</td></tr><tr><td>Bócsai Belvízcsatorna</td><td>14.12 km</td><td>F:0.341 D:0.0</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">Hi Judit! Kolon-tó, just 12.3 km away, has a moderate flood score (0.52), indicating occasional surplus water that you might tap into—especially during wetter periods—to supplement your drip irrigation. In contrast, the Kiskőrösi Tározó, although closest, shows drought risk (drought score 0.168) and a low water level, so it’s not reliable for your needs right now. To reduce dependency on government water, consider exploring a seasonal arrangement with Kolon-tó for surplus floodwater during wet spells, possibly coordinating with nearby farms for shared infrastructure. This could help secure grape yields while protecting the local ecosystem.</p>         </div>         </div>`)[0];
+                popup_14161a545660d474af4f81139afe3ef4.setContent(html_9a9f22fdbc1ad832448b112b46f5a89b);
+            
+        
+
+        marker_8256f004e8c270d649ab812e3d7e6832.bindPopup(popup_14161a545660d474af4f81139afe3ef4)
+        ;
+
+        
+    
+    
+            marker_8256f004e8c270d649ab812e3d7e6832.bindTooltip(
+                `<div>
+                     Keceli Homokbirtok — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8256f004e8c270d649ab812e3d7e6832.setIcon(icon_a759c6bfbcbb27ac733faa2cbd75c168);
+            
+    
+            var poly_line_8dd95d0f57fa8d6fc884b45d7ca3c21c = L.polyline(
+                [[46.6488, 19.2714], [46.6102, 19.2541]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_8dd95d0f57fa8d6fc884b45d7ca3c21c.bindTooltip(
+                `<div>
+                     Keceli Homokbirtok → Kiskőrösi Tározó (4.49 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_0393cd8eaca7c645a992a82538cd131e = L.marker(
+                [46.412, 20.0534],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_99ba14b63f1d7fcc96e070a552351dab = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_db8e7e3d70d805ce6c5725746b9425c3 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_54f4a062878a113c395b356d9fbc1e38 = $(`<div id="html_54f4a062878a113c395b356d9fbc1e38" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Zsombói Mezőgazdaság</b><br>           <span style="color:#666;font-size:12px">Balogh Ferenc</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Wheat</b></td></tr>             <tr><td>Size</td><td><b>250 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>sprinkler</b></td></tr>             <tr><td>Water need</td><td><b>150,000 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Fehér-tó (Fehértó)</td><td>7.12 km</td><td>F:0.0 D:0.513</td></tr><tr><td>Tisza</td><td>23.19 km</td><td>F:0.611 D:0.0</td></tr><tr><td>Kondor-tó</td><td>49.44 km</td><td>F:0.0 D:0.42</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">Hi Ferenc, based on current conditions, the Tisza river (23 km east) has the highest flood score and a stable water level, so it’s your best bet for surplus water—though keep in mind its flood risk and regulated flow. Fehér-tó (just 7 km away) and Kondor-tó (49 km) are both shallow, showing drought risks and drying trends, so they’re unreliable for irrigation. To reduce reliance on government water, look into setting up a permit and infrastructure for pumping or transferring water from the Tisza during high water periods, combining this with on-farm water storage to buffer against dry spells. Careful coordination with local water authorities will be essential.</p>         </div>         </div>`)[0];
+                popup_db8e7e3d70d805ce6c5725746b9425c3.setContent(html_54f4a062878a113c395b356d9fbc1e38);
+            
+        
+
+        marker_0393cd8eaca7c645a992a82538cd131e.bindPopup(popup_db8e7e3d70d805ce6c5725746b9425c3)
+        ;
+
+        
+    
+    
+            marker_0393cd8eaca7c645a992a82538cd131e.bindTooltip(
+                `<div>
+                     Zsombói Mezőgazdaság — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0393cd8eaca7c645a992a82538cd131e.setIcon(icon_99ba14b63f1d7fcc96e070a552351dab);
+            
+    
+            var poly_line_e00320f652476fe8405ca97f92acb14e = L.polyline(
+                [[46.412, 20.0534], [46.4523, 19.9812]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_e00320f652476fe8405ca97f92acb14e.bindTooltip(
+                `<div>
+                     Zsombói Mezőgazdaság → Fehér-tó (Fehértó) (7.12 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_0eb88454b24b027faec1913caa77347b = L.marker(
+                [47.0231, 19.4812],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_fdd0a6d89470a6601e0f5c3731f60ed2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bc7ac04ed2ad45529c37d2b723c07e4a = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_9ef905d20ad7437293e83aa1f325a1cf = $(`<div id="html_9ef905d20ad7437293e83aa1f325a1cf" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Felső-Homokhát Gazdaság</b><br>           <span style="color:#666;font-size:12px">Papp Sándor</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Sunflower</b></td></tr>             <tr><td>Size</td><td><b>185 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>drip</b></td></tr>             <tr><td>Water need</td><td><b>111,000 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Duna–Tisza-közi Hátság Canal</td><td>18.76 km</td><td>F:0.0 D:0.619</td></tr><tr><td>Ágasegyházi Tározó</td><td>19.24 km</td><td>F:0.0 D:0.056</td></tr><tr><td>Keleti Főcsatorna branch</td><td>26.4 km</td><td>F:0.084 D:0.111</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">Currently, none of the nearby water bodies—Duna–Tisza-közi Hátság Canal (18.76 km), Ágasegyházi Tározó (19.24 km), or Keleti Főcsatorna branch (26.4 km)—have a high flood score, so there is no surplus water to harness right now. The Duna–Tisza-közi Hátság Canal, with a drought score of 0.619 and critically low water levels, is at real risk during dry years and should not be relied on as your main source. To reduce your dependence on government freshwater, consider investing in on-farm rainwater harvesting or small storage ponds to capture spring rainfall, especially when Ágasegyházi Tározó shows overflow risk—this lets you make the most of local excesses without relying on distant, drought-prone sources.</p>         </div>         </div>`)[0];
+                popup_bc7ac04ed2ad45529c37d2b723c07e4a.setContent(html_9ef905d20ad7437293e83aa1f325a1cf);
+            
+        
+
+        marker_0eb88454b24b027faec1913caa77347b.bindPopup(popup_bc7ac04ed2ad45529c37d2b723c07e4a)
+        ;
+
+        
+    
+    
+            marker_0eb88454b24b027faec1913caa77347b.bindTooltip(
+                `<div>
+                     Felső-Homokhát Gazdaság — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0eb88454b24b027faec1913caa77347b.setIcon(icon_fdd0a6d89470a6601e0f5c3731f60ed2);
+            
+    
+            var poly_line_4347943982a0cefe9b02931cb79b259a = L.polyline(
+                [[47.0231, 19.4812], [46.9213, 19.2841]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_4347943982a0cefe9b02931cb79b259a.bindTooltip(
+                `<div>
+                     Felső-Homokhát Gazdaság → Duna–Tisza-közi Hátság Canal (18.76 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_4fec19135f30fef685280dbc49335379 = L.marker(
+                [46.6203, 19.2891],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_3c7079eac7736510b8c5f8bed63423ec = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_750c2e220188067b434ab817f9219849 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_676251e39265ff2099c16a0037d1d325 = $(`<div id="html_676251e39265ff2099c16a0037d1d325" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Kiskőrösi Szőlőbirtok</b><br>           <span style="color:#666;font-size:12px">Farkas Ilona</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Grape</b></td></tr>             <tr><td>Size</td><td><b>60 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>none</b></td></tr>             <tr><td>Water need</td><td><b>24,000 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Kiskőrösi Tározó</td><td>2.9 km</td><td>F:0.0 D:0.168</td></tr><tr><td>Bócsai Belvízcsatorna</td><td>10.68 km</td><td>F:0.341 D:0.0</td></tr><tr><td>Kolon-tó</td><td>15.73 km</td><td>F:0.52 D:0.0</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">Farkas Ilona, for your Kiskőrösi Szőlőbirtok vineyard, the nearest reservoir (Kiskőrösi Tározó, 2.9 km away) has limited surplus water and some drought risk, so it may not be a reliable source for irrigation in dry periods. The Bócsai Belvízcsatorna canal (10.68 km away) and Kolon-tó lake (15.73 km away) both show higher flood scores, especially Kolon-tó, indicating surplus water during wet seasons—you could explore collaborating with local authorities or neighboring farmers to capture and store this excess water when available. To reduce your reliance on government-supplied freshwater, consider installing on-farm storage ponds to harvest and retain floodwater from the canal or lake during the wet season for later use. This approach helps buffer your vineyard against both drought and unpredictable water supply.</p>         </div>         </div>`)[0];
+                popup_750c2e220188067b434ab817f9219849.setContent(html_676251e39265ff2099c16a0037d1d325);
+            
+        
+
+        marker_4fec19135f30fef685280dbc49335379.bindPopup(popup_750c2e220188067b434ab817f9219849)
+        ;
+
+        
+    
+    
+            marker_4fec19135f30fef685280dbc49335379.bindTooltip(
+                `<div>
+                     Kiskőrösi Szőlőbirtok — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4fec19135f30fef685280dbc49335379.setIcon(icon_3c7079eac7736510b8c5f8bed63423ec);
+            
+    
+            var poly_line_bfe0c2acbcc765ffc2c926d688c30cf0 = L.polyline(
+                [[46.6203, 19.2891], [46.6102, 19.2541]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_bfe0c2acbcc765ffc2c926d688c30cf0.bindTooltip(
+                `<div>
+                     Kiskőrösi Szőlőbirtok → Kiskőrösi Tározó (2.9 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_3fa7716624c4b4d87b3deda075296cfc = L.marker(
+                [46.9843, 19.3342],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_75553a7e06631d814d7f516f086fedf4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7d53208ba55137e1148300b1738519c3 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_ff9d46938f0f1865c623a244411e1e23 = $(`<div id="html_ff9d46938f0f1865c623a244411e1e23" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Kunadacs-puszta</b><br>           <span style="color:#666;font-size:12px">Simon Tibor</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Corn</b></td></tr>             <tr><td>Size</td><td><b>220 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>sprinkler</b></td></tr>             <tr><td>Water need</td><td><b>154,000 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Duna–Tisza-közi Hátság Canal</td><td>7.97 km</td><td>F:0.0 D:0.619</td></tr><tr><td>Ágasegyházi Tározó</td><td>19.95 km</td><td>F:0.0 D:0.056</td></tr><tr><td>Kiskunsági Főcsatorna</td><td>22.21 km</td><td>F:0.0 D:0.361</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">Simon, right now none of the nearby water bodies—especially the Duna–Tisza-közi Hátság Canal, just 7.97 km away—have surplus water, as their flood scores are all 0.0. The canal, along with the Kiskunsági Főcsatorna (22.21 km away), is at risk during droughts, so it’s best not to rely on them as your primary source, especially in dry years. Ágasegyházi Tározó (19.95 km away) has a higher water level and overflow risk in spring, so if possible, consider capturing or storing water during spring rains when the reservoir approaches overflow. Investing in on-site water storage or retention—using your existing irrigation infrastructure—will help reduce dependence on government supply and buffer against these extremes.</p>         </div>         </div>`)[0];
+                popup_7d53208ba55137e1148300b1738519c3.setContent(html_ff9d46938f0f1865c623a244411e1e23);
+            
+        
+
+        marker_3fa7716624c4b4d87b3deda075296cfc.bindPopup(popup_7d53208ba55137e1148300b1738519c3)
+        ;
+
+        
+    
+    
+            marker_3fa7716624c4b4d87b3deda075296cfc.bindTooltip(
+                `<div>
+                     Kunadacs-puszta — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3fa7716624c4b4d87b3deda075296cfc.setIcon(icon_75553a7e06631d814d7f516f086fedf4);
+            
+    
+            var poly_line_25f68ac73fec30929c58bfda34c31389 = L.polyline(
+                [[46.9843, 19.3342], [46.9213, 19.2841]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_25f68ac73fec30929c58bfda34c31389.bindTooltip(
+                `<div>
+                     Kunadacs-puszta → Duna–Tisza-közi Hátság Canal (7.97 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_f7e02bd5e83c7582aa5b9da420286064 = L.marker(
+                [46.8124, 19.5941],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_87aae8ea2f31e1d37dc52d05e2ecd766 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ab8035785c140b2479790d80e332b99e = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_adbc027f90cb5d9cfc1e61fc095fd965 = $(`<div id="html_adbc027f90cb5d9cfc1e61fc095fd965" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Orgoványi Tanyavilág</b><br>           <span style="color:#666;font-size:12px">Juhász Éva</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Vegetables</b></td></tr>             <tr><td>Size</td><td><b>115 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>drip</b></td></tr>             <tr><td>Water need</td><td><b>92,000 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Ágasegyházi Tározó</td><td>7.7 km</td><td>F:0.0 D:0.056</td></tr><tr><td>Kondor-tó</td><td>12.49 km</td><td>F:0.0 D:0.42</td></tr><tr><td>Keleti Főcsatorna branch</td><td>13.74 km</td><td>F:0.084 D:0.111</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">Éva, right now, none of the nearby water bodies show a surplus—Ágasegyházi Tározó (7.7 km) and Kondor-tó (12.49 km) both have flood scores of 0.0, meaning they aren’t likely to overflow or offer extra water. Kondor-tó is at higher drought risk (score: 0.42) and can dry up seasonally, so it’s unreliable for irrigation. The Keleti Főcsatorna branch (13.74 km) has the most balanced profile, but only a modest flood score (0.084) and water level. To reduce reliance on government freshwater, consider working with neighbors to invest in a small retention pond near your farm, fed during wetter periods from the Keleti canal; this helps store water when available and stabilizes supply during dry spells.</p>         </div>         </div>`)[0];
+                popup_ab8035785c140b2479790d80e332b99e.setContent(html_adbc027f90cb5d9cfc1e61fc095fd965);
+            
+        
+
+        marker_f7e02bd5e83c7582aa5b9da420286064.bindPopup(popup_ab8035785c140b2479790d80e332b99e)
+        ;
+
+        
+    
+    
+            marker_f7e02bd5e83c7582aa5b9da420286064.bindTooltip(
+                `<div>
+                     Orgoványi Tanyavilág — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f7e02bd5e83c7582aa5b9da420286064.setIcon(icon_87aae8ea2f31e1d37dc52d05e2ecd766);
+            
+    
+            var poly_line_25da26be74e2aa615f965afcf7f215f1 = L.polyline(
+                [[46.8124, 19.5941], [46.8512, 19.5103]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_25da26be74e2aa615f965afcf7f215f1.bindTooltip(
+                `<div>
+                     Orgoványi Tanyavilág → Ágasegyházi Tározó (7.7 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_343d072cced0c5d596c991902400f92e = L.marker(
+                [46.9341, 19.6872],
+                {
+}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            var icon_293f2b9bedd651312d03a9e8ce396397 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_595da38909765c1fa5ecfb28d25f9944 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_e64a4dc05fa27d6978084cc17cf2ac17 = $(`<div id="html_e64a4dc05fa27d6978084cc17cf2ac17" style="width: 100.0%; height: 100.0%;">         <div style="font-family:sans-serif;min-width:260px;max-width:300px">           <b style="font-size:14px">Kerekegyházi Homoki Farm</b><br>           <span style="color:#666;font-size:12px">Németh Béla</span>           <hr style="margin:6px 0">           <table style="font-size:12px;width:100%">             <tr><td>Crop</td><td><b>Wheat</b></td></tr>             <tr><td>Size</td><td><b>165 ha</b></td></tr>             <tr><td>Irrigation</td><td><b>sprinkler</b></td></tr>             <tr><td>Water need</td><td><b>99,000 m³/yr</b></td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">Nearest water bodies (KNN k=3)</b><br>           <table style="font-size:11px;width:100%;border-collapse:collapse">             <tr style="background:#f5f5f5">               <th style="text-align:left">Name</th>               <th>Dist.</th><th>Scores</th>             </tr>             <tr><td>Keleti Főcsatorna branch</td><td>8.32 km</td><td>F:0.084 D:0.111</td></tr><tr><td>Ágasegyházi Tározó</td><td>16.3 km</td><td>F:0.0 D:0.056</td></tr><tr><td>Kiskunsági Főcsatorna</td><td>26.94 km</td><td>F:0.0 D:0.361</td></tr>           </table>           <hr style="margin:6px 0">           <b style="font-size:12px">&#129668; Advisor insight</b><br>           <p style="font-size:12px;color:#333;margin:4px 0">Németh Béla, for reliable irrigation at Kerekegyházi Homoki Farm, the Keleti Főcsatorna branch (8.32 km away) stands out with its moderate flood score (0.084), suggesting occasional surplus water you could harness, especially during wet periods. Avoid depending on the Kiskunsági Főcsatorna (26.94 km), as its high drought score (0.361) signals frequent shortages in the summer. To reduce reliance on government freshwater, consider investing in on-farm water storage to capture flood flows from the Keleti Főcsatorna when surplus is available, so you’re better equipped during dry spells. This local solution balances risk and gives you more control over your water supply.</p>         </div>         </div>`)[0];
+                popup_595da38909765c1fa5ecfb28d25f9944.setContent(html_e64a4dc05fa27d6978084cc17cf2ac17);
+            
+        
+
+        marker_343d072cced0c5d596c991902400f92e.bindPopup(popup_595da38909765c1fa5ecfb28d25f9944)
+        ;
+
+        
+    
+    
+            marker_343d072cced0c5d596c991902400f92e.bindTooltip(
+                `<div>
+                     Kerekegyházi Homoki Farm — click for insights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_343d072cced0c5d596c991902400f92e.setIcon(icon_293f2b9bedd651312d03a9e8ce396397);
+            
+    
+            var poly_line_36b1d99a25af0422094605914e9dc384 = L.polyline(
+                [[46.9341, 19.6872], [46.8734, 19.7512]],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_745450310c174c4e6d356bee80dd843e);
+        
+    
+            poly_line_36b1d99a25af0422094605914e9dc384.bindTooltip(
+                `<div>
+                     Kerekegyházi Homoki Farm → Keleti Főcsatorna branch (8.32 km)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>
